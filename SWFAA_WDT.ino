@@ -17,9 +17,16 @@ void setup()
 	digitalWrite(_Bite, HIGH);
 	pinMode(_Bite, OUTPUT); 
 
+	//set enabled to false, wait until first pat to enable
 	wdtEnabled = false;
-	bite_time = (_startupDelay - millis()) + _PatFreq;
 
+	//Make sure MEGA has time to start up
+	delay(_startupDelay);
+
+	//Just initalize the variable to something
+	bite_time = millis();
+
+	//Attach interrupt to call pat function on change
 	attachInterrupt(_Pat, pat, CHANGE);
 }
 
